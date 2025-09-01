@@ -2,6 +2,7 @@ package com.example.simplecrud.controllers;
 
 import com.example.simplecrud.Entity.Clans;
 import com.example.simplecrud.repository.SimpleCrudRepository;
+import com.example.simplecrud.service.SimpleCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CRUDController {
     @Autowired
-    SimpleCrudRepository simpleCrudRepository;
+    SimpleCrudService simpleCrudService;
 
     @GetMapping("/getclans")
      public Iterable<Clans> getclanDetails(){
         System.out.println("It is working");
-        return simpleCrudRepository.findAll();
+        return simpleCrudService.getClansDetails();
 
      }
      @GetMapping("/healthcheck")
@@ -28,7 +29,7 @@ public class CRUDController {
      public String addClan(@RequestParam int id, @RequestParam String name){
         Clans clan=new Clans();
         clan.setName(name);
-        simpleCrudRepository.save(clan);
+        simpleCrudService.addClan(clan);
         return "SUCCESS";
      }
 
